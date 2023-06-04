@@ -1,8 +1,95 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <title>Сайт расчёта калорий</title>
+    <style>
+        /* Стили для текста в середине страницы */
+        .main-content {
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        /* Стили для кнопок входа и регистрации */
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        /* Стили для кнопки входа */
+        .login-button {
+            background-color: #4CAF50;
+        }
+
+        /* Стили для кнопки регистрации */
+        .register-button {
+            background-color: #008CBA;
+        }
+
+        /* Стили для формы в левом верхнем углу */
+        .sidebar-form {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 250px;
+            margin-bottom: 2-3rem;
+        }
+
+        /* Стили для заголовка формы */
+        .form-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Стили для кнопки внутри формы */
+        .form-button {
+            background-color: #008CBA;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Форма в левом верхнем углу -->
+    <div class="sidebar-form">
+        <!-- Форма "Контакты" -->
+        <div>
+            <h3 class="form-title">Контакты:</h3>
+            <p>TG: <a href="https://t.me/yourusername">yourusername</a></p>
+            <p>GitHub: <a href="https://github.com/yourusername">yourusername</a></p>
+            <p>Discord: yourusername#1234</p>
+        </div>
+
+        <!-- Кнопка "Анализатор калорий" -->
+        <div>
+            <button class="form-button">Анализатор калорий</button>
+        </div>
+    </div>
+
+    <!-- Кнопки входа и регистрации -->
+    <div style="text-align: right; margin: 10px;">
+        <a href="#" class="button login-button">Вход</a>
+        <a href="#" class="button register-button">Регистрация</a>
+    </div>
+
+    <!-- Текст в середине страницы -->
+    <div class="main-content">
+        <h1>Добро пожаловать на сайт расчёта калорий!</h1>
+        <p>Здесь вы сможете узнать, сколько калорий содержится в различных продуктах и блюдах.</p>
+    </div>
+</body>
+
+</html>
