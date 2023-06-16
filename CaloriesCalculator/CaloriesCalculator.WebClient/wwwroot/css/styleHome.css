@@ -34,19 +34,22 @@
 /* Стили для формы в левом верхнем углу */
 .sidebar-form {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     width: 250px;
 }
 
 
-.sidebar-form2: {
+/* Стили для формы в левом верхнем углу */
+.sidebar-form {
     position: absolute;
     top: 20px;
     left: 20px;
     width: 250px;
 }
 
+  
+  
 
 /* Стили для заголовка формы */
 .form-title {
