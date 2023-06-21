@@ -1,3 +1,6 @@
+using CaloriesCalculator.WebClient.Domain;
+using Microsoft.EntityFrameworkCore;
+
 namespace CaloriesCalculator.WebClient
 {
     public class Program
@@ -8,6 +11,9 @@ namespace CaloriesCalculator.WebClient
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<DatabaseContext>(c =>
+    c.UseSqlServer(builder.Configuration.GetConnectionString("Main") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
 
             var app = builder.Build();
 
