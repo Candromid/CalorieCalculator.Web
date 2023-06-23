@@ -33,10 +33,10 @@ namespace CaloriesCalculator.WebClient.Controllers
                     Carbohydrates = model.ProductCarbohydrates
                 };
 
-                var t = _context.Products.ToList();
+                //var t = _context.Products.ToList();
 
-                //_context.Products.Add(newProduct);
-                //_context.SaveChanges();
+                _context.Products.Add(newProduct);
+                _context.SaveChanges();
 
 
 

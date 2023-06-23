@@ -1,17 +1,19 @@
 ﻿using CaloriesCalculator.WebClient.Domain.Entities;
-using CaloriesCalculator.WebClient.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Diagnostics.Metrics;
 
 namespace CaloriesCalculator.WebClient.Domain
 {
     public class DatabaseContext : DbContext
     {
+
+
         public DatabaseContext(DbContextOptions options) : base(options)
         {
         }
         public DbSet<Products> Products { get; set; }
+
+
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -34,9 +36,10 @@ namespace CaloriesCalculator.WebClient.Domain
             .IsRequired()
              .HasMaxLength(100);
 
-
             builder.Property(x => x.Proteins);
+
             builder.Property(x => x.Fats);
+
             builder.Property(x => x.Carbohydrates);
 
         }

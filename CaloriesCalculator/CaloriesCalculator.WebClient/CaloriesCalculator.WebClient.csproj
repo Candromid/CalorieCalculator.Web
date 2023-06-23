@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Service\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
