@@ -11,7 +11,7 @@ namespace CaloriesCalculator.WebClient.Domain
         public DatabaseContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Products> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
 
@@ -22,15 +22,16 @@ namespace CaloriesCalculator.WebClient.Domain
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Product>(ConfigureProducts);
             //builder.Entity<Master>(ConfigureMaster);
             //builder.Entity<WorkingDay>(ConfigureWorkingDay);
         }
 
-        private void ConfigureProducts(EntityTypeBuilder<Products> builder)
+        private void ConfigureProducts(EntityTypeBuilder<Product> builder)
         {
             builder.ToTable("Products");
 
-            builder.HasKey(x => x.ID);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
             .IsRequired()

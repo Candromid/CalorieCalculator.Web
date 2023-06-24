@@ -1,8 +1,8 @@
 ﻿namespace CaloriesCalculator.WebClient.Domain.Entities
 {
-    public class Products
+    public class Product
     {
-        public int ID { get; set; }
+        public int Id { get; set; } 
         public string Name { get; set; }
         public float Proteins { get; set; }
         public float Fats { get; set; }

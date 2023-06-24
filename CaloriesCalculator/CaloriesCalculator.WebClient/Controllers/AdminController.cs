@@ -7,7 +7,7 @@ namespace CaloriesCalculator.WebClient.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Admin() 
+        public IActionResult Index()
         {
             return View();
         }
@@ -24,16 +24,15 @@ namespace CaloriesCalculator.WebClient.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newProduct = new Products
+                var newProduct = new Product
                 {
-                    ID = model.ProductId,
                     Name = model.ProductName,
                     Proteins = model.ProductProteins,
                     Fats = model.ProductFats,
                     Carbohydrates = model.ProductCarbohydrates
                 };
 
-                //var t = _context.Products.ToList();
+              
 
                 _context.Products.Add(newProduct);
                 _context.SaveChanges();
@@ -42,9 +41,9 @@ namespace CaloriesCalculator.WebClient.Controllers
 
                 return RedirectToAction("Admin", "Admin");
             }
-            
-            
-            
+
+
+
             return View();
         }
     }
