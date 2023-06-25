@@ -1,3 +1,4 @@
+using CaloriesCalculator.WebClient.Controllers;
 using CaloriesCalculator.WebClient.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +32,7 @@ namespace CaloriesCalculator.WebClient
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+                        
             app.Run();
         }
     }

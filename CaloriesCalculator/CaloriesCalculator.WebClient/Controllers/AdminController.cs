@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CaloriesCalculator.WebClient.Controllers
 {
-    public class AdminController : Controller
+        public class AdminController : Controller
     {
         public IActionResult Index()
         {
@@ -26,23 +26,17 @@ namespace CaloriesCalculator.WebClient.Controllers
             {
                 var newProduct = new Product
                 {
-                    Name = model.ProductName,
-                    Proteins = model.ProductProteins,
-                    Fats = model.ProductFats,
-                    Carbohydrates = model.ProductCarbohydrates
+                    Name = model.Name,
+                    Proteins = model.Proteins,
+                    Fats = model.Fats,
+                    Carbohydrates = model.Carbohydrates
                 };
-
-              
 
                 _context.Products.Add(newProduct);
                 _context.SaveChanges();
 
-
-
-                return RedirectToAction("Admin", "Admin");
+                return RedirectToAction("Index", "Admin");
             }
-
-
 
             return View();
         }

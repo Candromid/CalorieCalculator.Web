@@ -23,6 +23,7 @@ namespace CaloriesCalculator.WebClient.Domain
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>(ConfigureProducts);
+
             //builder.Entity<Master>(ConfigureMaster);
             //builder.Entity<WorkingDay>(ConfigureWorkingDay);
         }
