@@ -40,5 +40,11 @@ namespace CaloriesCalculator.WebClient.Controllers
 
             return View();
         }
+
+        public IActionResult ProductList()
+        {
+            var productList = _context.Products.ToList();
+            return View(productList);
+        }
     }
 }
