@@ -3,8 +3,26 @@
 @{
     ViewData["Title"] = "Cписок продуктов";
 }
-
 <h1>Список продуктов</h1>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/styleForProductList.css" />
+</head>
 
 <p>
     <a href = "/Admin">Добавить продукт</a>
@@ -15,13 +33,13 @@
     <input type="text" id="searhTerm" name="searchTerm">
     <button type="submit">Искать</button>
 </form>
-
 <table>
     <tr>
         <th>Название</th>
         <th>Белки</th>
         <th>Жиры</th>
         <th>Углеводы</th>
+        <th>Действия</th> <!-- Новая колонка для кнопок действий -->
     </tr>
     @foreach (var product in Model)
     {
@@ -30,6 +48,28 @@
             <td>@product.Proteins</td>
             <td>@product.Fats</td>
             <td>@product.Carbohydrates</td>
+            <td>
+                <!-- Кнопка удаления с подтверждением -->
+                <form method="post" action="/Admin/DeleteProduct/@product.Id" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?')">
+                    <button type="submit">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+
+                <!-- Кнопка изменения -->
+                <form method="get" action="/Admin/EditProduct/@product.Id">
+                    <button type="submit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
     }
 </table>
+
+
+
+
+
+
+

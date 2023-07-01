@@ -4,6 +4,14 @@
 
 <h1>Административная панель</h1>
 
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <a href="/Admin/ProductList">Список продуктов</a>
 
 <div>

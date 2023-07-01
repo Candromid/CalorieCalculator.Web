@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Fonts\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="wwwroot\js\" />

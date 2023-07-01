@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CaloriesCalculator.WebClient.Controllers
 {
-        public class AdminController : Controller
+    public class AdminController : Controller
     {
         public IActionResult Index()
         {
@@ -35,6 +35,9 @@ namespace CaloriesCalculator.WebClient.Controllers
                 _context.Products.Add(newProduct);
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = "Продукт успешно добавлен.";
+
+
                 return RedirectToAction("Index", "Admin");
             }
 
@@ -45,6 +48,60 @@ namespace CaloriesCalculator.WebClient.Controllers
         {
             var productList = _context.Products.ToList();
             return View(productList);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProduct(Product product)
+        {
+            if (product != null)
+            {
+                try
+                {
+                    _context.Products.Remove(product);
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Продукт успешно удалён.";
+
+                    return RedirectToAction("ProductList");
+                }
+                catch (Exception ex)
+                {
+                    ViewData["ErrorMessage"] = "Ошибка при удалении продукта: " + ex.Message;
+                    return View("Error");
+                }
+            }
+            else
+            {
+                ViewData["ErrorMessage"] = "Продукт не найден!";
+                return View("Error");
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(int id, string newName)
+        {
+            var product = _context.Products.Find(id);
+
+            if (product == null)
+            {
+                ViewData["ErrorMessage"] = "Продукт не найден!";
+                return View("Error");
+            }
+
+            try
+            {
+                product.Name = newName;
+                _context.SaveChanges();
+
+                TempData["SuccessMessage"] = "Продукт успешно изменен.";
+                return RedirectToAction("ProductList");
+            }
+            catch (Exception ex)
+            {
+                ViewData["ErrorMessage"] = "Ошибка при изменении продукта: " + ex.Message;
+                return View("Error");
+            }
         }
     }
 }
