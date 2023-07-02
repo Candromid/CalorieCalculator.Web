@@ -75,8 +75,8 @@
             <td>@product.Carbohydrates</td>
             <td>
                 <!-- Кнопка изменения -->
-                <form method="get" action="/Admin/EditProduct/@product.Id">
-                    <button type="submit">
+                <form method="post" action="/Admin/EditProduct/@product.Id">
+                    <button type="button" onclick="editProduct(@product.Id)">
                         <i class="fas fa-edit"></i>
                     </button>
                 </form>
@@ -92,6 +92,36 @@
         </tr>
     }
 </table>
+
+
+<script>
+    function editProduct(productId) {
+        var newName = prompt("Введите новое название продукта:");
+        var newProteins = prompt("Введите новое значение для белков:");
+        var newFats = prompt("Введите новое значение для жиров:");
+        var newCarbohydrates = prompt("Введите новое значение для углеводов:");
+
+        if (newName && newProteins && newFats && newCarbohydrates) {
+            $.ajax({
+                url: "/Admin/EditProduct/" + productId,
+                type: "POST",
+                data: {
+                    newName: newName,
+                    newProteins: newProteins,
+                    newFats: newFats,
+                    newCarbohydrates: newCarbohydrates
+                },
+                success: function (result) {
+                    alert("Продукт успешно изменен.");
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("Ошибка при изменении продукта: " + error);
+                }
+            });
+        }
+    }
+</script>
 
 
 

@@ -82,8 +82,9 @@ namespace CaloriesCalculator.WebClient.Controllers
 
         }
 
+
         [HttpPost]
-        public IActionResult EditProduct(int id, string newName)
+        public IActionResult EditProduct(int id, string newName, decimal newProteins, decimal newFats, decimal newCarbohydrates)
         {
             var product = _context.Products.Find(id);
 
@@ -96,6 +97,9 @@ namespace CaloriesCalculator.WebClient.Controllers
             try
             {
                 product.Name = newName;
+                product.Proteins = newProteins;
+                product.Fats = newFats;
+                product.Carbohydrates = newCarbohydrates;
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Продукт успешно изменен.";
@@ -107,5 +111,6 @@ namespace CaloriesCalculator.WebClient.Controllers
                 return View("Error");
             }
         }
+
     }
 }
