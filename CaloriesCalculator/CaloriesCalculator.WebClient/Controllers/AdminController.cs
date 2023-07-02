@@ -7,9 +7,18 @@ namespace CaloriesCalculator.WebClient.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string search)
         {
-            return View();
+            if (!string.IsNullOrEmpty(search))
+            {
+                var filteredProducts = _context.Products.Where(p => p.Name.Contains(search)).ToList();
+                return View(filteredProducts);
+            }
+            else
+            {
+                var allProducts = _context.Products.ToList();
+                return View(allProducts);
+            }
         }
 
         private readonly DatabaseContext _context;
@@ -44,12 +53,7 @@ namespace CaloriesCalculator.WebClient.Controllers
             return View();
         }
 
-        public IActionResult ProductList()
-        {
-            var productList = _context.Products.ToList();
-            return View(productList);
-        }
-
+      
         [HttpPost]
         public IActionResult DeleteProduct(Product product)
         {
@@ -62,7 +66,7 @@ namespace CaloriesCalculator.WebClient.Controllers
 
                     TempData["SuccessMessage"] = "Продукт успешно удалён.";
 
-                    return RedirectToAction("ProductList");
+                    return RedirectToAction("Index", "Admin");
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +99,7 @@ namespace CaloriesCalculator.WebClient.Controllers
                 _context.SaveChanges();
 
                 TempData["SuccessMessage"] = "Продукт успешно изменен.";
-                return RedirectToAction("ProductList");
+                return RedirectToAction("Index", "Admin");
             }
             catch (Exception ex)
             {

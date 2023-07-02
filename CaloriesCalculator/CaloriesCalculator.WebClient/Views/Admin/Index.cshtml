@@ -12,7 +12,15 @@
     </div>
 }
 
-<a href="/Admin/ProductList">Список продуктов</a>
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+
+<link rel="stylesheet" href="~/css/styleForProductList.css" />
 
 <div>
     <h3>Добавить продукт</h3>
@@ -32,3 +40,61 @@
         <button type="submit">Добавить</button>
     </form>
 </div>
+
+<br>
+
+@model List<CaloriesCalculator.WebClient.Domain.Entities.Product>
+
+
+@{
+    ViewData["Title"] = "Cписок продуктов";
+}
+<h1>Список продуктов</h1>
+
+
+<form method="get" action="/Admin/Index">
+    <label for="searchTerm">Поиск по названию</label>
+    <input type="text" id="searchTerm" name="searchTerm">
+    <button type="submit">Искать</button>
+</form>
+<table>
+    <tr>
+        <th>Название</th>
+        <th>Белки</th>
+        <th>Жиры</th>
+        <th>Углеводы</th>
+        <th>Действия</th> <!-- Новая колонка для кнопок действий -->
+    </tr>
+
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Proteins</td>
+            <td>@product.Fats</td>
+            <td>@product.Carbohydrates</td>
+            <td>
+                <!-- Кнопка изменения -->
+                <form method="get" action="/Admin/EditProduct/@product.Id">
+                    <button type="submit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+
+                <!-- Кнопка удаления с подтверждением -->
+                <form method="post" action="/Admin/DeleteProduct/@product.Id" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?')">
+                    <button type="submit">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+
