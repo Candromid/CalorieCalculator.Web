@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Административная панель</h1>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<a href="/Admin/ProductList">Список продуктов</a>
+
+<div>
+    <h3>Добавить продукт</h3>
+    <form method="post" action="/Admin/AddProducts">
+        <label for="Name">Название:</label>
+        <input type="text" id="Name" name="Name" required>
+
+        <label for="Proteins">Белки:</label>
+        <input type="text" id="Proteins" name="Proteins" required>
+
+        <label for="Fats">Жиры:</label>
+        <input type="text" id="Fats" name="Fats" required>
+
+        <label for="Carbohydrates">Углеводы:</label>
+        <input type="text" id="Carbohydrates" name="Carbohydrates" required>
+
+        <button type="submit">Добавить</button>
+    </form>
+</div>

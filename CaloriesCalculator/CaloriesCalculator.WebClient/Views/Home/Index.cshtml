@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Сайт расчёта калорий</title>
+    <link rel="stylesheet" href="~/css/styleHome.css">
+</head>
+<body>
+    <!-- Форма в левом верхнем углу -->
+    <div class="sidebar-form">
+        <!-- Форма "Контакты" -->
+        <div>
+            <h3 class="form-title">Контакты:</h3>
+            <p>TG: <a href="https://t.me/Candromid">Candromid</a></p>
+            <p>GitHub: <a href="https://github.com/Candromid">Candromid</a></p>
+            <p>Discord канал: <a href="https://discord.gg/TzEyXxw"> Ezич </a> </p>
+        </div>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <!-- Форма "Анализатор калорий" -->
+    <div class="sidebar-form2">
+        <form>
+            <button class="form-button">Анализатор калорий</button>
+        </form>
+    </div>
+
+    <!-- Кнопки входа и регистрации -->
+    <div class="button-container">
+        <a href="#" class="button login-button">Вход</a>
+        <a href="#" class="button register-button">Регистрация</a>
+    </div>
+
+    <!-- Текст в середине страницы -->
+    <div class="main-content">
+        <h1>Добро пожаловать на сайт расчёта калорий!</h1>
+        <p>Здесь вы сможете узнать, сколько калорий содержится в различных продуктах и блюдах.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿/* Стили для текста в середине страницы */
+.main-content {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Стили для кнопок входа и регистрации */
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* Стили для кнопки входа */
+.login-button {
+    background-color: #4CAF50;
+}
+
+/* Стили для кнопки регистрации */
+.register-button {
+    background-color: #008CBA;
+}
+
+/* Стили для формы в левом верхнем углу */
+.sidebar-form {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 250px;
+}
+
+
+/* Стили для формы в левом верхнем углу */
+.sidebar-form {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 250px;
+}
+
+  
+  
+
+/* Стили для заголовка формы */
+.form-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Стили для кнопки внутри формы */
+.form-button {
+    background-color: #008CBA;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Стили для контейнера кнопок входа и регистрации */
+.button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
