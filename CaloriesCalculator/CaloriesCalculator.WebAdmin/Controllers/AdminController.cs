@@ -1,17 +1,17 @@
-﻿using CaloriesCalculator.WebClient.Domain;
-using CaloriesCalculator.WebClient.Models;
-using CaloriesCalculator.WebClient.Domain.Entities;
+﻿using CaloriesCalculator.WebAdmin.Domain;
+using CaloriesCalculator.WebAdmin.Domain.Entities;
+using CaloriesCalculator.WebAdmin.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CaloriesCalculator.WebClient.Controllers
+namespace CaloriesCalculator.WebAdmin.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index(string search)
+        public IActionResult Index(string searchTerm)
         {
-            if (!string.IsNullOrEmpty(search))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                var filteredProducts = _context.Products.Where(p => p.Name.Contains(search)).ToList();
+                var filteredProducts = _context.Products.Where(p => p.Name.Contains(searchTerm)).ToList();
                 return View(filteredProducts);
             }
             else
@@ -53,7 +53,7 @@ namespace CaloriesCalculator.WebClient.Controllers
             return View();
         }
 
-      
+
         [HttpPost]
         public IActionResult DeleteProduct(Product product)
         {
@@ -111,6 +111,5 @@ namespace CaloriesCalculator.WebClient.Controllers
                 return View("Error");
             }
         }
-
     }
 }
