@@ -43,7 +43,7 @@
 
 <br>
 
-@model List<CaloriesCalculator.WebClient.Domain.Entities.Product>
+@model List<CaloriesCalculator.WebAdmin.Domain.Entities.Product>
 
 
 @{
@@ -56,7 +56,9 @@
     <label for="searchTerm">Поиск по названию</label>
     <input type="text" id="searchTerm" name="searchTerm">
     <button type="submit">Искать</button>
+    <a href="/Admin/Index" class="btn btn-primary">Полный список продуктов</a>
 </form>
+
 <table>
     <tr>
         <th>Название</th>
@@ -122,9 +124,3 @@
         }
     }
 </script>
-
-
-
-
-
-
