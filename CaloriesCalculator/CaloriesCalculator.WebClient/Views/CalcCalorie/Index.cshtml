@@ -1,0 +1,95 @@
+﻿@model List<CaloriesCalculator.WebClient.Domain.Entities.Product>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Калькулятор калорий</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Калькулятор калорий</h1>
+
+        <!-- Таблица с продуктами -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Продукт</th>
+                    <th>Белки, гр</th>
+                    <th>Жиры, гр</th>
+                    <th>Углеводы, гр</th>
+                    <th>Калории, ккал</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.Proteins</td>
+                        <td>@product.Fats</td>
+                        <td>@product.Carbohydrates</td>
+                        <td><span class="caloriesSpan"></span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Форма для выбора продукта -->
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="productSelect">Выберите продукт:</label>
+                <select class="form-control" id="productSelect" required>
+                    @foreach (var product in Model)
+                    {
+                        <option value="@product.Id">@product.Name</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
+
+        <!-- Результаты калькуляции -->
+        <div id="resultContainer" class="mt-3" style="display: none;">
+            <h3>Результаты:</h3>
+            <p>Калории: <span id="caloriesOutput"></span></p>
+        </div>
+    </div>
+
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Обработка отправки формы
+            $("#calculatorForm").submit(function (event) {
+                event.preventDefault();
+
+                var productId = $("#productSelect").val();
+
+                // Отправка запроса на рассчет калорий на сервер
+                $.ajax({
+                    url: "/Calc/CalculateCalories",
+                    type: "POST",
+                    data: { productId: productId },
+                    success: function (response) {
+                        // Отображение результатов
+                        $(".caloriesSpan").each(function () {
+                            var productRow = $(this).closest("tr");
+                            var productCalories = response.calories;
+                            $(this).text(productCalories);
+                        });
+                        $("#resultContainer").show();
+                    },
+                    error: function () {
+                        alert("Произошла ошибка при рассчете калорий.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

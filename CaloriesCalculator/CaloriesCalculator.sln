@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloriesCalculator.WebClient", "CaloriesCalculator.WebClient\CaloriesCalculator.WebClient.csproj", "{308483A9-DCC0-4559-A681-14A83C135B8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaloriesCalculator.WebAdmin", "CaloriesCalculator.WebAdmin\CaloriesCalculator.WebAdmin.csproj", "{23ECC007-DDC0-43DF-8496-F4A4F68B01E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaloriesCalculator.WebAdmin", "CaloriesCalculator.WebAdmin\CaloriesCalculator.WebAdmin.csproj", "{23ECC007-DDC0-43DF-8496-F4A4F68B01E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
