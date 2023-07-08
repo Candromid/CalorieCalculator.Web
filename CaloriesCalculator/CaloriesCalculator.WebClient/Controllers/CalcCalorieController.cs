@@ -1,6 +1,8 @@
 ﻿using CaloriesCalculator.WebClient.Domain;
-using CaloriesCalculator.WebClient.Domain.Entities;
+using CaloriesCalculator.WebClient.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CaloriesCalculator.WebClient.Controllers
 {
@@ -13,27 +15,39 @@ namespace CaloriesCalculator.WebClient.Controllers
             _context = context;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            var products = _context.Products.ToList();
-            return View(products);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult SearchProducts(string query)
+        {
+            var products = _context.Products
+                .Where(p => p.Name.Contains(query))
+                .Select(p => new Product
+                {
+                    Name = p.Name
+                })
+                .ToList();
+
+            return Json(products);
         }
 
         [HttpPost]
-        public IActionResult CalculateCalories(int productId)
+        public IActionResult CalculateCalories(string product)
         {
-            // Найти продукт по его идентификатору в БД
-            var product = _context.Products.Find(productId);
+            var selectedProduct = _context.Products.FirstOrDefault(p => p.Name == product);
 
-            if (product == null)
+            if (selectedProduct == null)
             {
                 return BadRequest("Продукт не найден.");
             }
 
             // Расчет калорий на основе выбранного продукта и веса 100 грамм
-            decimal calories = (product.Proteins + product.Fats + product.Carbohydrates) / 100;
+            decimal calories = (selectedProduct.Proteins + selectedProduct.Fats + selectedProduct.Carbohydrates) / 100;
 
-            return Ok(new { calories });
+            return Json(new { calories });
         }
     }
 }

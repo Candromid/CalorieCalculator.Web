@@ -1,6 +1,4 @@
-﻿@model List<CaloriesCalculator.WebClient.Domain.Entities.Product>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Калькулятор калорий</title>
@@ -10,43 +8,12 @@
     <div class="container mt-5">
         <h1>Калькулятор калорий</h1>
 
-        <!-- Таблица с продуктами -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Продукт</th>
-                    <th>Белки, гр</th>
-                    <th>Жиры, гр</th>
-                    <th>Углеводы, гр</th>
-                    <th>Калории, ккал</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model)
-                {
-                    <tr>
-                        <td>@product.Id</td>
-                        <td>@product.Name</td>
-                        <td>@product.Proteins</td>
-                        <td>@product.Fats</td>
-                        <td>@product.Carbohydrates</td>
-                        <td><span class="caloriesSpan"></span></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
         <!-- Форма для выбора продукта -->
         <form id="calculatorForm">
             <div class="form-group">
-                <label for="productSelect">Выберите продукт:</label>
-                <select class="form-control" id="productSelect" required>
-                    @foreach (var product in Model)
-                    {
-                        <option value="@product.Id">@product.Name</option>
-                    }
-                </select>
+                <label for="productInput">Введите продукт:</label>
+                <input type="text" class="form-control" id="productInput" autocomplete="off" required>
+                <div id="productListContainer"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Рассчитать</button>
@@ -64,24 +31,58 @@
 
     <script>
         $(document).ready(function () {
+            // Обработка ввода продукта
+            $("#productInput").on("input", function () {
+                var inputValue = $(this).val();
+
+                if (inputValue.length >= 2) {
+                    // Отправка запроса на получение списка продуктов
+                    $.ajax({
+                        url: "/Calc/GetProducts",
+                        type: "GET",
+                        data: { query: inputValue },
+                        success: function (response) {
+                            // Отображение выпадающего списка с продуктами
+                            var productList = $("#productListContainer");
+                            productList.empty();
+
+                            $.each(response, function (index, product) {
+                                var listItem = $("<div>").addClass("list-item").text(product.name);
+                                productList.append(listItem);
+                            });
+
+                            productList.show();
+                        },
+                        error: function () {
+                            alert("Произошла ошибка при получении списка продуктов.");
+                        }
+                    });
+                } else {
+                    $("#productListContainer").hide();
+                }
+            });
+
+            // Обработка выбора продукта из списка
+            $(document).on("click", ".list-item", function () {
+                var selectedProduct = $(this).text();
+                $("#productInput").val(selectedProduct);
+                $("#productListContainer").hide();
+            });
+
             // Обработка отправки формы
             $("#calculatorForm").submit(function (event) {
                 event.preventDefault();
 
-                var productId = $("#productSelect").val();
+                var selectedProduct = $("#productInput").val();
 
                 // Отправка запроса на рассчет калорий на сервер
                 $.ajax({
                     url: "/Calc/CalculateCalories",
                     type: "POST",
-                    data: { productId: productId },
+                    data: { product: selectedProduct },
                     success: function (response) {
                         // Отображение результатов
-                        $(".caloriesSpan").each(function () {
-                            var productRow = $(this).closest("tr");
-                            var productCalories = response.calories;
-                            $(this).text(productCalories);
-                        });
+                        $("#caloriesOutput").text(response.calories);
                         $("#resultContainer").show();
                     },
                     error: function () {
