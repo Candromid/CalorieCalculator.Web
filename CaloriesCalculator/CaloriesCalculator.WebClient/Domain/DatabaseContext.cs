@@ -1,4 +1,4 @@
-﻿using CaloriesCalculator.WebClient.Domain.Entities;
+﻿using CaloriesCalculator.WebClient.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

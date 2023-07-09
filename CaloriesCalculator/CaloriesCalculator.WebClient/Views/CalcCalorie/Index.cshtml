@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Калькулятор калорий</title>
+</head>
+<body>
+    <h1>Калькулятор калорий</h1>
+
+    <form>
+        <table>
+            <tr>
+                <th>№</th>
+                <th>Название</th>
+                <th>Белки</th>
+                <th>Жиры</th>
+                <th>Углеводы</th>
+            </tr>
+            <tr>
+                <td id="rowIndex">1</td>
+                <td><input type="text" name="name" /></td>
+                <td><input type="text" name="proteins" /></td>
+                <td><input type="text" name="fats" /></td>
+                <td><input type="text" name="carbs" /></td>
+            </tr>
+            <tr id="totalRow">
+                <td></td>
+                <td><input type="text" name="totalName" value="Итого" readonly /></td>
+                <td><input type="text" name="totalProteins" /></td>
+                <td><input type="text" name="totalFats" /></td>
+                <td><input type="text" name="totalCarbs" /></td>
+            </tr>
+            <tr id="totalPer100gRow">
+                <td></td>
+                <td><input type="text" name="totalPer100gName" value="Итого на 100 грамм" readonly /></td>
+                <td><input type="text" name="totalPer100gProteins" /></td>
+                <td><input type="text" name="totalPer100gFats" /></td>
+                <td><input type="text" name="totalPer100gCarbs" /></td>
+            </tr>
+        </table>
+        <br />
+        <button type="button" onclick="addNewRow()">Добавить новый продукт</button>
+    </form>
+
+    <script>
+        var rowCount = 1;
+
+        function addNewRow() {
+            var table = document.querySelector('table');
+            var row = table.insertRow(-1);
+
+            var cellIndex = row.insertCell();
+            cellIndex.textContent = ++rowCount;
+
+            var cellName = row.insertCell();
+            cellName.innerHTML = '<input type="text" name="name" />';
+
+            var cellProteins = row.insertCell();
+            cellProteins.innerHTML = '<input type="text" name="proteins" />';
+
+            var cellFats = row.insertCell();
+            cellFats.innerHTML = '<input type="text" name="fats" />';
+
+            var cellCarbs = row.insertCell();
+            cellCarbs.innerHTML = '<input type="text" name="carbs" />';
+
+            // Перемещаем строки "Итого" и "Итого на 100 грамм" в конец таблицы
+            var totalRow = document.getElementById("totalRow");
+            var totalPer100gRow = document.getElementById("totalPer100gRow");
+            table.appendChild(totalRow);
+            table.appendChild(totalPer100gRow);
+        }
+    </script>
+</body>
+</html>
