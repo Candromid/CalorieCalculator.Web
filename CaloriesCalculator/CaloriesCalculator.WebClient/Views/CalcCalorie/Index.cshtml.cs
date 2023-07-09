@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CaloriesCalculator.WebClient.Views.CaloriesCalc
+namespace CaloriesCalculator.WebClient.Views.CalcCalorie
 {
     public class IndexModel : PageModel
     {
