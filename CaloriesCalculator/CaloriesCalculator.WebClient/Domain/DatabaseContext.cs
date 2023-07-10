@@ -11,9 +11,9 @@ namespace CaloriesCalculator.WebClient.Domain
         public DatabaseContext(DbContextOptions options) : base(options)
         {
         }
+
         public DbSet<Product> Products { get; set; }
                    
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>(ConfigureProducts);

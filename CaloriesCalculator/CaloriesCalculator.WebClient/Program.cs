@@ -12,9 +12,8 @@ namespace CaloriesCalculator.WebClient
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
-            builder.Services.AddDbContext<DatabaseContext>(c =>
-    c.UseSqlServer(builder.Configuration.GetConnectionString("Main") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Main")));
 
             var app = builder.Build();
 
@@ -32,8 +31,9 @@ namespace CaloriesCalculator.WebClient
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-                        
+
             app.Run();
         }
+
     }
 }

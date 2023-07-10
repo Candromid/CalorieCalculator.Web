@@ -17,7 +17,10 @@
             </tr>
             <tr>
                 <td id="rowIndex">1</td>
-                <td><input type="text" name="name" /></td>
+                <td>
+                    <input type="text" name="name" />
+                    <select id="productList" style="display: none;"></select>
+                </td>
                 <td><input type="text" name="proteins" /></td>
                 <td><input type="text" name="fats" /></td>
                 <td><input type="text" name="carbs" /></td>
@@ -44,6 +47,32 @@
     <script>
         var rowCount = 1;
 
+        function updateAutocompleteEvents() {
+            $('input[name="name"]').off('input');
+            $('input[name="name"]').on('input', function () {
+                var term = $(this).val();
+
+                $.ajax({
+                    url: '@Url.Action("SearchProducts", "CalcCalorie")',
+                    type: 'GET',
+                    data: { term: term },
+                    success: function (data) {
+                        var productList = $('#productList');
+                        productList.empty();
+
+                        data.forEach(function (product) {
+                            var option = $('<option>');
+                            option.val(product.id);
+                            option.text(product.name);
+                            productList.append(option);
+                        });
+
+                        productList.show();
+                    }
+                });
+            });
+        }
+
         function addNewRow() {
             var table = document.querySelector('table');
             var row = table.insertRow(-1);
@@ -53,6 +82,7 @@
 
             var cellName = row.insertCell();
             cellName.innerHTML = '<input type="text" name="name" />';
+            cellName.innerHTML += '<select class="product-list" style="display: none;"></select>';
 
             var cellProteins = row.insertCell();
             cellProteins.innerHTML = '<input type="text" name="proteins" />';
@@ -63,12 +93,33 @@
             var cellCarbs = row.insertCell();
             cellCarbs.innerHTML = '<input type="text" name="carbs" />';
 
-            // Перемещаем строки "Итого" и "Итого на 100 грамм" в конец таблицы
             var totalRow = document.getElementById("totalRow");
             var totalPer100gRow = document.getElementById("totalPer100gRow");
             table.appendChild(totalRow);
             table.appendChild(totalPer100gRow);
+
+            updateAutocompleteEvents();
         }
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            updateAutocompleteEvents();
+
+            $(document).on('change', '.product-list', function () {
+                var selectedOption = $(this).find(':selected');
+                var row = $(this).closest('tr');
+                var proteinsInput = row.find('input[name="proteins"]');
+                var fatsInput = row.find('input[name="fats"]');
+                var carbsInput = row.find('input[name="carbs"]');
+
+                proteinsInput.val(selectedOption.data('proteins'));
+                fatsInput.val(selectedOption.data('fats'));
+                carbsInput.val(selectedOption.data('carbs'));
+            });
+        });
+    </script>
+
 </body>
 </html>
