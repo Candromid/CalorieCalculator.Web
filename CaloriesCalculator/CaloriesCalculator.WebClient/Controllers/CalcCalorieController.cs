@@ -19,24 +19,23 @@ namespace CaloriesCalculator.WebClient.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult SearchProducts(string term)
         {
             var products = _context.Products
-                .Where(p => p.Name.StartsWith(term))
-                .Select(p => new { p.Id, p.Name })
+                .Where(p => p.Name.Contains(term))
+                .Select(p => new {
+                    label = p.Name,
+                    value = p.Name,
+                    proteins = p.Proteins,
+                    fats = p.Fats,
+                    carbohydrates = p.Carbohydrates
+                })
                 .ToList();
 
             return Json(products);
         }
 
-        public IActionResult GetProduct(int id)
-        {
-            var product = _context.Products.Find(id);
-            if (product == null)
-                return NotFound();
-
-            return Json(product);
-        }
     }
 
 }
