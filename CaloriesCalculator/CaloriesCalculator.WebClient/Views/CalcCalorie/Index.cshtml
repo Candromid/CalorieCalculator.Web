@@ -8,6 +8,14 @@
     <title>Калькулятор калорий</title>
     <link rel="stylesheet" type="text/css" href="~/css/StyleForIndexCalcCalorie.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+      <style>
+        input[readonly] {
+            background-color: #dddddd;
+        }
+    </style>
+
+
 </head>
 <body>
     <h1>Калькулятор калорий</h1>
@@ -18,36 +26,49 @@
                 <tr>
                     <th>№</th>
                     <th>Название</th>
+                    <th>Вес, гр</th> 
                     <th>Белки</th>
                     <th>Жиры</th>
                     <th>Углеводы</th>
+                    <th>Калорий, ккал</th> 
+                    <th>Удалить</th> 
                 </tr>
             </thead>
+            <!-- ... -->
             <tbody id="productRows">
                 <tr>
                     <td>1</td>
-                    <td>
-                        <input type="text" class="product-name" name="name" />
-                    </td>
-                    <td><input type="text" class="product-proteins" name="proteins" /></td>
-                    <td><input type="text" class="product-fats" name="fats" /></td>
-                    <td><input type="text" class="product-carbs" name="carbs" /></td>
+                    <td><input type="text" class="product-name" name="name" /></td>
+                    <td><input type="text" class="product-weight" name="weight" /></td> 
+                    <td><input type="text" class="product-proteins" name="proteins" readonly value="0" /></td>
+                    <td><input type="text" class="product-fats" name="fats" readonly value="0" /></td>
+                    <td><input type="text" class="product-carbs" name="carbs" readonly value="0" /></td>
+                    <td><input type="text" class="product-calories" name="calories" readonly value="0" /></td> 
+                    <td></td> 
                 </tr>
             </tbody>
+            <!-- ... -->
+
             <tfoot>
                 <tr id="totalRow">
                     <td></td>
                     <td><input type="text" name="totalName" value="Итого" readonly /></td>
-                    <td><input type="text" name="totalProteins" /></td>
-                    <td><input type="text" name="totalFats" /></td>
-                    <td><input type="text" name="totalCarbs" /></td>
+                    <td><input type="text" name="totalWeight" readonly value="0" /></td>
+                    <td><input type="text" name="totalProteins" readonly value="0" /></td>
+                    <td><input type="text" name="totalFats" readonly value="0" /></td>
+                    <td><input type="text" name="totalCarbs" readonly value="0" /></td>
+                    <td><input type="text" name="totalCalories" readonly value="0" /></td>
+                    <td></td>
                 </tr>
                 <tr id="totalPer100gRow">
                     <td></td>
                     <td><input type="text" name="totalPer100gName" value="Итого на 100 грамм" readonly /></td>
-                    <td><input type="text" name="totalPer100gProteins" /></td>
-                    <td><input type="text" name="totalPer100gFats" /></td>
-                    <td><input type="text" name="totalPer100gCarbs" /></td>
+                    <td><input type="text" name="totalPer100gWeight" readonly value="100" /></td>
+                    <td><input type="text" name="totalPer100gProteins" readonly value="0" /></td>
+                    <td><input type="text" name="totalPer100gFats" readonly value="0" /></td>
+                    <td><input type="text" name="totalPer100gCarbs" readonly value="0" /></td>
+                    <td><input type="text" name="totalPer100gCalories" readonly value="0" /></td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
@@ -56,6 +77,8 @@
 
     <script src="/lib/jquery/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="~/js/addRow.js"></script>
+    <script src="~/js/calculateTotal.js"></script>
+
 </body>
 </html>
