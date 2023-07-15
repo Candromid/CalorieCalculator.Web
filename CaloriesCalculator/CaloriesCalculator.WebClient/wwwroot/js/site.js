@@ -4,10 +4,13 @@
     var row = table.insertRow(rowCount);
 
     var cellIndex = row.insertCell();
-    cellIndex.textContent = rowCount ++;
+    cellIndex.textContent = rowCount;
 
     var cellName = row.insertCell();
     cellName.innerHTML = '<input type="text" class="product-name" name="name" />';
+
+    var cellWeight = row.insertCell(); // Новая ячейка
+    cellWeight.innerHTML = '<input type="text" class="product-weight" name="weight" />';
 
     var cellProteins = row.insertCell();
     cellProteins.innerHTML = '<input type="text" class="product-proteins" name="proteins" />';
@@ -17,6 +20,12 @@
 
     var cellCarbs = row.insertCell();
     cellCarbs.innerHTML = '<input type="text" class="product-carbs" name="carbs" />';
+
+    var cellCalories = row.insertCell(); // Новая ячейка
+    cellCalories.innerHTML = '<input type="text" class="product-calories" name="calories" />';
+
+    var cellDelete = row.insertCell(); // Новая ячейка для кнопки удаления
+    cellDelete.innerHTML = '<button type="button" class="delete-row">🗑️</button>';
 
     setupAutocomplete();
 }
@@ -43,7 +52,7 @@ function setupAutocomplete() {
         }
     });
 }
-
-$(function () {
+$(document).on('click', '.delete-row', function () {
     setupAutocomplete();
+    $(this).closest('tr').remove();
 });

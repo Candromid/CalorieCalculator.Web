@@ -18,36 +18,46 @@
                 <tr>
                     <th>№</th>
                     <th>Название</th>
+                    <th>Вес, гр</th> 
                     <th>Белки</th>
                     <th>Жиры</th>
                     <th>Углеводы</th>
+                    <th>Калорий, ккал</th> 
+                    <th>Удалить</th> 
                 </tr>
             </thead>
             <tbody id="productRows">
                 <tr>
                     <td>1</td>
-                    <td>
-                        <input type="text" class="product-name" name="name" />
-                    </td>
+                    <td><input type="text" class="product-name" name="name" /></td>
+                    <td><input type="text" class="product-weight" name="weight" /></td> 
                     <td><input type="text" class="product-proteins" name="proteins" /></td>
                     <td><input type="text" class="product-fats" name="fats" /></td>
                     <td><input type="text" class="product-carbs" name="carbs" /></td>
+                    <td><input type="text" class="product-calories" name="calories" /></td> 
+                    <td></td> 
                 </tr>
             </tbody>
             <tfoot>
                 <tr id="totalRow">
                     <td></td>
                     <td><input type="text" name="totalName" value="Итого" readonly /></td>
+                    <td><input type="text" name="totalWeight" /></td> 
                     <td><input type="text" name="totalProteins" /></td>
                     <td><input type="text" name="totalFats" /></td>
                     <td><input type="text" name="totalCarbs" /></td>
+                    <td><input type="text" name="totalCalories" /></td> 
+                    <td></td> 
                 </tr>
                 <tr id="totalPer100gRow">
                     <td></td>
                     <td><input type="text" name="totalPer100gName" value="Итого на 100 грамм" readonly /></td>
+                    <td><input type="text" name="totalPer100gWeight" /></td> 
                     <td><input type="text" name="totalPer100gProteins" /></td>
                     <td><input type="text" name="totalPer100gFats" /></td>
                     <td><input type="text" name="totalPer100gCarbs" /></td>
+                    <td><input type="text" name="totalPer100gCalories" /></td> 
+                    <td></td> 
                 </tr>
             </tfoot>
         </table>
