@@ -27,7 +27,19 @@
     var cellDelete = row.insertCell(); // New cell for delete button
     cellDelete.innerHTML = '<button type="button" class="delete-row">🗑️</button>';
 
+
+    var tableRows = $('table tr').length - 1; // минус строка заголовка
+    if (tableRows > 1) {
+        $('.delete-row').prop('disabled', false);
+    }
+
+
+
+
     setupAutocomplete();
+
+
+    
 }
 
 function setupAutocomplete() {
@@ -121,6 +133,12 @@ function calculateTotal() {
 
 $(document).on('click', '.delete-row', function () {
     $(this).closest('tr').remove();
+    var tableRows = $('table tr').length - 1; // минус строка заголовка (если у вас есть заголовок)
+    if (tableRows === 1) {
+        $('.delete-row').prop('disabled', true);
+    } else {
+        $('.delete-row').prop('disabled', false);
+    }
     calculateTotal();
 });
 
