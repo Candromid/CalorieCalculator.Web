@@ -1,4 +1,4 @@
-using CaloriesCalculator.WebAdmin.Domain;
+using CaloriesCalculator.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaloriesCalculator.WebAdmin

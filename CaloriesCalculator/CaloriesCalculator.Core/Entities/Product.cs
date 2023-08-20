@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CaloriesCalculator.WebClient.Models
+namespace CaloriesCalculator.Core.Entities
 {
     public class Product
     {

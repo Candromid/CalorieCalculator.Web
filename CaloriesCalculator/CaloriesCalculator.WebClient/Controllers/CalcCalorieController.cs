@@ -1,7 +1,5 @@
-﻿using CaloriesCalculator.WebClient.Domain;
+﻿using CaloriesCalculator.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace CaloriesCalculator.WebClient.Controllers
 {

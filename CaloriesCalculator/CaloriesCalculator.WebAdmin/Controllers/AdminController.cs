@@ -1,5 +1,5 @@
-﻿using CaloriesCalculator.WebAdmin.Domain;
-using CaloriesCalculator.WebAdmin.Domain.Entities;
+﻿using CaloriesCalculator.Core.Entities;
+using CaloriesCalculator.Infrastructure;
 using CaloriesCalculator.WebAdmin.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,25 +7,43 @@ namespace CaloriesCalculator.WebAdmin.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index(string searchTerm)
-        {
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                var filteredProducts = _context.Products.Where(p => p.Name.Contains(searchTerm)).ToList();
-                return View(filteredProducts);
-            }
-            else
-            {
-                var allProducts = _context.Products.ToList();
-                return View(allProducts);
-            }
-        }
-
         private readonly DatabaseContext _context;
 
         public AdminController(DatabaseContext context)
         {
             _context = context;
+        }
+
+        public IActionResult Index(string searchTerm)
+        {
+            
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                var filteredProducts = _context.Products.Where(p => p.Name.Contains(searchTerm)).ToList();
+                return View(filteredProducts.Select(x => new ProductViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Proteins = x.Proteins,
+                    Fats = x.Fats,
+                    Carbohydrates = x.Carbohydrates
+                }
+                ).ToList());
+            }
+            else
+            {
+                var allProducts = _context.Products.ToList();
+                return View(allProducts.Select(x => new ProductViewModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Proteins = x.Proteins,
+                    Fats = x.Fats,
+                    Carbohydrates = x.Carbohydrates
+                }
+                ).ToList());
+            }
         }
 
         [HttpPost]

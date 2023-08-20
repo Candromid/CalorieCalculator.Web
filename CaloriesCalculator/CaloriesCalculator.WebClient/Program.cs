@@ -1,5 +1,4 @@
-using CaloriesCalculator.WebClient.Controllers;
-using CaloriesCalculator.WebClient.Domain;
+using CaloriesCalculator.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaloriesCalculator.WebClient
