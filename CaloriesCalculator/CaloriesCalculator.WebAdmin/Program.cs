@@ -1,4 +1,5 @@
 using CaloriesCalculator.Infrastructure;
+using CaloriesCalculator.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaloriesCalculator.WebAdmin
@@ -14,6 +15,8 @@ namespace CaloriesCalculator.WebAdmin
 
             builder.Services.AddDbContext<DatabaseContext>(c =>
     c.UseSqlServer(builder.Configuration.GetConnectionString("Main") ?? throw new InvalidOperationException("Connection string 'RazorPagesMovieContext' not found.")));
+
+            builder.Services.AddScoped<ProductRepository>();
 
             var app = builder.Build();
 

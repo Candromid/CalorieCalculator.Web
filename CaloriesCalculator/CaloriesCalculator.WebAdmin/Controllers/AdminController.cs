@@ -1,5 +1,6 @@
 ﻿using CaloriesCalculator.Core.Entities;
 using CaloriesCalculator.Infrastructure;
+using CaloriesCalculator.Infrastructure.Repositories;
 using CaloriesCalculator.WebAdmin.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,20 +8,19 @@ namespace CaloriesCalculator.WebAdmin.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly DatabaseContext _context;
+        private readonly ProductRepository _productRepository;
 
-        public AdminController(DatabaseContext context)
+        public AdminController(ProductRepository productRepository)
         {
-            _context = context;
+            _productRepository = productRepository;
         }
 
         public IActionResult Index(string searchTerm)
         {
-            
-
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                var filteredProducts = _context.Products.Where(p => p.Name.Contains(searchTerm)).ToList();
+                var filteredProducts = _productRepository.Search(searchTerm);
+
                 return View(filteredProducts.Select(x => new ProductViewModel()
                 {
                     Id = x.Id,
@@ -31,9 +31,10 @@ namespace CaloriesCalculator.WebAdmin.Controllers
                 }
                 ).ToList());
             }
+
             else
             {
-                var allProducts = _context.Products.ToList();
+                var allProducts = _productRepository.GetAll();
                 return View(allProducts.Select(x => new ProductViewModel()
                 {
                     Id = x.Id,
@@ -59,8 +60,7 @@ namespace CaloriesCalculator.WebAdmin.Controllers
                     Carbohydrates = model.Carbohydrates
                 };
 
-                _context.Products.Add(newProduct);
-                _context.SaveChanges();
+                _productRepository.Add(newProduct);
 
                 TempData["SuccessMessage"] = "Продукт успешно добавлен.";
 
@@ -79,8 +79,7 @@ namespace CaloriesCalculator.WebAdmin.Controllers
             {
                 try
                 {
-                    _context.Products.Remove(product);
-                    _context.SaveChanges();
+                    _productRepository.Delete(product);
 
                     TempData["SuccessMessage"] = "Продукт успешно удалён.";
 
@@ -104,7 +103,7 @@ namespace CaloriesCalculator.WebAdmin.Controllers
         [HttpPost]
         public IActionResult EditProduct(int id, string newName, decimal newProteins, decimal newFats, decimal newCarbohydrates)
         {
-            var product = _context.Products.Find(id);
+            var product = _productRepository.Search(id);
 
             if (product == null)
             {
@@ -114,11 +113,7 @@ namespace CaloriesCalculator.WebAdmin.Controllers
 
             try
             {
-                product.Name = newName;
-                product.Proteins = newProteins;
-                product.Fats = newFats;
-                product.Carbohydrates = newCarbohydrates;
-                _context.SaveChanges();
+                _productRepository.Update(id, new Product { Name = newName, Proteins = newProteins, Fats = newFats, Carbohydrates = newCarbohydrates });
 
                 TempData["SuccessMessage"] = "Продукт успешно изменен.";
                 return RedirectToAction("Index", "Admin");
