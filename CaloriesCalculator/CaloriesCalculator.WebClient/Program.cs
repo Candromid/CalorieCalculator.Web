@@ -1,4 +1,5 @@
 using CaloriesCalculator.Infrastructure;
+using CaloriesCalculator.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace CaloriesCalculator.WebClient
@@ -13,6 +14,8 @@ namespace CaloriesCalculator.WebClient
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Main")));
+
+            builder.Services.AddScoped<ProductRepository>();
 
             var app = builder.Build();
 
