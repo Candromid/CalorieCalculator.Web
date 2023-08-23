@@ -1,5 +1,4 @@
-﻿using CaloriesCalculator.Infrastructure;
-using CaloriesCalculator.Infrastructure.Repositories;
+﻿using CaloriesCalculator.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CaloriesCalculator.WebClient.Controllers
