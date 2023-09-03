@@ -1,17 +1,16 @@
-﻿using CaloriesCalculator.WebClient.Domain;
+﻿using CaloriesCalculator.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace CaloriesCalculator.WebClient.Controllers
 {
     public class CalcCalorieController : Controller
     {
-        private readonly DatabaseContext _context;
+        private readonly ProductRepository _productRepository;
 
-        public CalcCalorieController(DatabaseContext context)
+        public CalcCalorieController(ProductRepository productRepository)
         {
-            _context = context;
+
+            _productRepository = productRepository;
         }
 
         public IActionResult Index()
@@ -22,15 +21,14 @@ namespace CaloriesCalculator.WebClient.Controllers
         [HttpGet]
         public IActionResult SearchProducts(string term)
         {
-            var products = _context.Products
-                .Where(p => p.Name.Contains(term))
-                .Select(p => new {
-                    label = p.Name,
-                    value = p.Name,
-                    proteins = p.Proteins,
-                    fats = p.Fats,
-                    carbohydrates = p.Carbohydrates
-                })
+            var products = _productRepository.Search(term).Select(p => new
+            {
+                label = p.Name,
+                value = p.Name,
+                proteins = p.Proteins,
+                fats = p.Fats,
+                carbohydrates = p.Carbohydrates
+            })
                 .ToList();
 
             return Json(products);
